@@ -89,19 +89,19 @@ private:
     std::mutex mMutexStop;
 
     bool mbStopTrack;
-
-    bool menuFollowCamera;
-    bool menuCamView;
-    bool menuTopView;
+    pangolin::Var<bool>* menuFollowCamera;
+    // bool menuFollowCamera;
+    pangolin::Var<bool>* menuCamView;
+    pangolin::Var<bool>* menuTopView;
     // bool menuSideView("menu.Side View",false,false);
-    bool menuShowPoints;
-    bool menuShowKeyFrames;
-    bool menuShowGraph;
-    bool menuShowInertialGraph;
-    bool menuLocalizationMode;
-    bool menuReset;
-    bool menuStepByStep;  // false, true
-    bool menuStep;
+    pangolin::Var<bool>* menuShowPoints;
+    pangolin::Var<bool>* menuShowKeyFrames;
+    pangolin::Var<bool>* menuShowGraph;
+    pangolin::Var<bool>* menuShowInertialGraph;
+    pangolin::Var<bool>* menuLocalizationMode;
+    pangolin::Var<bool>* menuReset;
+    pangolin::Var<bool>* menuStepByStep;  // false, true
+    pangolin::Var<bool>* menuStep;
 
     pangolin::OpenGlRenderState s_cam;
 

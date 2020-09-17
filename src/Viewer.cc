@@ -89,18 +89,18 @@ void Viewer::Init()
     bStepByStep = false;
     bCameraView = true;
 
-    menuFollowCamera = true;
-    menuCamView = false;
-    menuTopView = false;
+    menuFollowCamera = new pangolin::Var<bool>("menu.Follow Camera",true,true);
+    menuCamView = new pangolin::Var<bool>("menu.Camera View",false,false);
+    menuTopView = new pangolin::Var<bool>("menu.Top View",false,false);
     // pangolin::Var<bool> menuSideView("menu.Side View",false,false);
-    menuShowPoints = true;
-    menuShowKeyFrames = true;
-    menuShowGraph = false;
-    menuShowInertialGraph = true;
-    menuLocalizationMode = false;
-    menuReset = false;
-    menuStepByStep = false;  // false, true
-    menuStep = false;
+    menuShowPoints = new pangolin::Var<bool>("menu.Show Points",true,true);
+    menuShowKeyFrames = new pangolin::Var<bool>("menu.Show KeyFrames",true,true);
+    menuShowGraph = new pangolin::Var<bool>("menu.Show Graph",false,true);
+    menuShowInertialGraph = new pangolin::Var<bool>("menu.Show Inertial Graph",true,true);
+    menuLocalizationMode = new pangolin::Var<bool>("menu.Localization Mode",false,true);
+    menuReset = new pangolin::Var<bool>("menu.Reset",false,false);
+    menuStepByStep = new pangolin::Var<bool>("menu.Step By Step",false,true);  // false, true
+    menuStep = new pangolin::Var<bool>("menu.Step",false,false);
 }
 
 void Viewer::Draw()
@@ -111,18 +111,18 @@ void Viewer::Draw()
 
         if(mbStopTrack)
         {
-            menuStepByStep = true;
+            *menuStepByStep = true;
             mbStopTrack = false;
         }
 
-        if(menuFollowCamera && bFollow)
+        if(*menuFollowCamera && bFollow)
         {
             if(bCameraView)
                 s_cam.Follow(Twc);
             else
                 s_cam.Follow(Ow);
         }
-        else if(menuFollowCamera && !bFollow)
+        else if(*menuFollowCamera && !bFollow)
         {
             if(bCameraView)
             {
@@ -138,23 +138,23 @@ void Viewer::Draw()
             }
             bFollow = true;
         }
-        else if(!menuFollowCamera && bFollow)
+        else if(!*menuFollowCamera && bFollow)
         {
             bFollow = false;
         }
 
-        if(menuCamView)
+        if(*menuCamView)
         {
-            menuCamView = false;
+            *menuCamView = false;
             bCameraView = true;
             s_cam.SetProjectionMatrix(pangolin::ProjectionMatrix(1024,768,mViewpointF,mViewpointF,512,389,0.1,10000));
             s_cam.SetModelViewMatrix(pangolin::ModelViewLookAt(mViewpointX,mViewpointY,mViewpointZ, 0,0,0,0.0,-1.0, 0.0));
             s_cam.Follow(Twc);
         }
 
-        if(menuTopView && mpMapDrawer->mpAtlas->isImuInitialized())
+        if(*menuTopView && mpMapDrawer->mpAtlas->isImuInitialized())
         {
-            menuTopView = false;
+            *menuTopView = false;
             bCameraView = false;
             /*s_cam.SetProjectionMatrix(pangolin::ProjectionMatrix(1024,768,3000,3000,512,389,0.1,1000));
             s_cam.SetModelViewMatrix(pangolin::ModelViewLookAt(0,0.01,10, 0,0,0,0.0,0.0, 1.0));*/
@@ -171,41 +171,41 @@ void Viewer::Draw()
         }*/
 
 
-        if(menuLocalizationMode && !bLocalizationMode)
+        if(*menuLocalizationMode && !bLocalizationMode)
         {
             mpSystem->ActivateLocalizationMode();
             bLocalizationMode = true;
         }
-        else if(!menuLocalizationMode && bLocalizationMode)
+        else if(!*menuLocalizationMode && bLocalizationMode)
         {
             mpSystem->DeactivateLocalizationMode();
             bLocalizationMode = false;
         }
 
-        if(menuStepByStep && !bStepByStep)
+        if(*menuStepByStep && !bStepByStep)
         {
             mpTracker->SetStepByStep(true);
             bStepByStep = true;
         }
-        else if(!menuStepByStep && bStepByStep)
+        else if(!*menuStepByStep && bStepByStep)
         {
             mpTracker->SetStepByStep(false);
             bStepByStep = false;
         }
 
-        if(menuStep)
+        if(*menuStep)
         {
             mpTracker->mbStep = true;
-            menuStep = false;
+            *menuStep = false;
         }
 
 
         d_cam.Activate(s_cam);
         glClearColor(1.0f,1.0f,1.0f,1.0f);
         mpMapDrawer->DrawCurrentCamera(Twc);
-        if(menuShowKeyFrames || menuShowGraph || menuShowInertialGraph)
-            mpMapDrawer->DrawKeyFrames(menuShowKeyFrames,menuShowGraph, menuShowInertialGraph);
-        if(menuShowPoints)
+        if(*menuShowKeyFrames || *menuShowGraph || *menuShowInertialGraph)
+            mpMapDrawer->DrawKeyFrames(*menuShowKeyFrames, *menuShowGraph, *menuShowInertialGraph);
+        if(*menuShowPoints)
             mpMapDrawer->DrawMapPoints();
 
         pangolin::FinishFrame();
@@ -224,21 +224,21 @@ void Viewer::Draw()
         cv::imshow("ORB-SLAM3: Current Frame",toShow);
         cv::waitKey(mT);
 
-        if(menuReset)
+        if(*menuReset)
         {
-            menuShowGraph = true;
-            menuShowInertialGraph = true;
-            menuShowKeyFrames = true;
-            menuShowPoints = true;
-            menuLocalizationMode = false;
+            *menuShowGraph = true;
+            *menuShowInertialGraph = true;
+            *menuShowKeyFrames = true;
+            *menuShowPoints = true;
+            *menuLocalizationMode = false;
             if(bLocalizationMode)
                 mpSystem->DeactivateLocalizationMode();
             bLocalizationMode = false;
             bFollow = true;
-            menuFollowCamera = true;
+            *menuFollowCamera = true;
             //mpSystem->Reset();
             mpSystem->ResetActiveMap();
-            menuReset = false;
+            *menuReset = false;
         }
 
         if(Stop())
