@@ -7,6 +7,8 @@ ENDIF()
 
 MESSAGE("Build type: " ${CMAKE_BUILD_TYPE})
 
+option(BUILD_SHARED_LIBS "Build shared gtsam library, instead of static" ON)
+
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall   -O3")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall   -O3")
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -march=native")
@@ -47,17 +49,24 @@ MESSAGE(${OpenCV_VERSION})
 find_package(Eigen3 3.1.0 REQUIRED)
 find_package(Pangolin REQUIRED)
 
+set(BOOST_FIND_MINIMUM_VERSION 1.43)
+set(BOOST_FIND_MINIMUM_COMPONENTS serialization system filesystem thread program_options date_time timer chrono regex)
+
+find_package(Boost ${BOOST_FIND_MINIMUM_VERSION} COMPONENTS ${BOOST_FIND_MINIMUM_COMPONENTS})
+find_package(OpenSSL REQUIRED)
+
 include_directories(
 ${PROJECT_SOURCE_DIR}
 ${PROJECT_SOURCE_DIR}/include
 ${PROJECT_SOURCE_DIR}/include/CameraModels
 ${EIGEN3_INCLUDE_DIR}
 ${Pangolin_INCLUDE_DIRS}
+${OPENSSL_INCLUDE_DIR}
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 
-add_library(${PROJECT_NAME} SHARED
+add_library(${PROJECT_NAME}
 src/System.cc
 src/Tracking.cc
 src/LocalMapping.cc
@@ -116,14 +125,15 @@ src/TwoViewReconstruction.cc)
 
 add_subdirectory(Thirdparty/g2o)
 
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME} PUBLIC 
 ${OpenCV_LIBS}
 ${EIGEN3_LIBS}
 ${Pangolin_LIBRARIES}
-${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so
-${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.so
--lboost_serialization
--lcrypto
+${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.dylib
+${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.dylib
+# -lboost_serialization
+Boost::serialization
+${OPENSSL_LIBRARIES}
 )
 
 

@@ -1,5 +1,5 @@
 # #!/bin/bash
-pathDatasetTUM_VI='/home/holo/tum' #Example, it is necesary to change it by the dataset path
+pathDatasetTUM_VI='/Users/yyqing/Soft/DataSet/tum' #Example, it is necesary to change it by the dataset path
 
 # #------------------------------------
 # # Monocular Examples
@@ -40,14 +40,13 @@ pathDatasetTUM_VI='/home/holo/tum' #Example, it is necesary to change it by the 
 # ./Examples/Stereo/stereo_tum_vi Vocabulary/ORBvoc.txt Examples/Stereo/TUM_VI.yaml "$pathDatasetTUM_VI"/dataset-room5_512_16/mav0/cam0/data "$pathDatasetTUM_VI"/dataset-room5_512_16/mav0/cam1/data Examples/Stereo/TUM_TimeStamps/dataset-room5_512.txt dataset-room5_512_stereo
 
 # echo "Launching Room 6 with Stereo sensor"
-# ./Examples/Stereo/stereo_tum_vi Vocabulary/ORBvoc.txt Examples/Stereo/TUM_VI.yaml "$pathDatasetTUM_VI"/dataset-room6_512_16/mav0/cam0/data "$llllllllllll
-# "/dataset-room6_512_16/mav0/cam1/data Examples/Stereo/TUM_TimeStamps/dataset-room6_512.txt dataset-room6_512_stereo
+# ./Examples/Stereo/stereo_tum_vi Vocabulary/ORBvoc.txt Examples/Stereo/TUM_VI.yaml "$pathDatasetTUM_VI"/dataset-room6_512_16/mav0/cam0/data "$pathDatasetTUM_VI"/dataset-room6_512_16/mav0/cam1/data Examples/Stereo/TUM_TimeStamps/dataset-room6_512.txt dataset-room6_512_stereo
 
 
-#------------------------------------
-# Monocular-Inertial Examples
+# #------------------------------------
+# # Monocular-Inertial Examples
 # echo "Launching Corridor 1 with Monocular-Inertial sensor"
-# ./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-corridor1_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-corridor1_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-corridor1_512.txt dataset-corridor1_512_monoi
+./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-corridor1_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-corridor1_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-corridor1_512.txt dataset-corridor1_512_monoi
 
 # echo "Launching Corridor 2 with Monocular-Inertial sensor"
 # ./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-corridor2_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-corridor2_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-corridor2_512.txt dataset-corridor2_512_monoi
@@ -110,7 +109,7 @@ pathDatasetTUM_VI='/home/holo/tum' #Example, it is necesary to change it by the 
 # ./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-room1_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-room1_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-room1_512.txt dataset-room1_512_monoi
 
 # echo "Launching Room 2 with Monocular-Inertial sensor"
-./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-room2_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-room2_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-room2_512.txt dataset-room2_512_monoi
+# ./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-room2_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-room2_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-room2_512.txt dataset-room2_512_monoi
 
 # echo "Launching Room 3 with Monocular-Inertial sensor"
 # ./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-room3_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-room3_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-room3_512.txt dataset-room3_512_monoi
@@ -208,7 +207,7 @@ pathDatasetTUM_VI='/home/holo/tum' #Example, it is necesary to change it by the 
 # ./Examples/Stereo-Inertial/stereo_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Stereo-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-room1_512_16/mav0/cam0/data "$pathDatasetTUM_VI"/dataset-room1_512_16/mav0/cam1/data Examples/Stereo-Inertial/TUM_TimeStamps/dataset-room1_512.txt Examples/Stereo-Inertial/TUM_IMU/dataset-room1_512.txt dataset-room1_512_stereoi
 
 # echo "Launching Room 2 with Stereo-Inertial sensor"
-#./Examples/Stereo-Inertial/stereo_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Stereo-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-room2_512_16/mav0/cam0/data "$pathDatasetTUM_VI"/dataset-room2_512_16/mav0/cam1/data Examples/Stereo-Inertial/TUM_TimeStamps/dataset-room2_512.txt Examples/Stereo-Inertial/TUM_IMU/dataset-room2_512.txt dataset-room2_512_stereoi
+# ./Examples/Stereo-Inertial/stereo_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Stereo-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-room2_512_16/mav0/cam0/data "$pathDatasetTUM_VI"/dataset-room2_512_16/mav0/cam1/data Examples/Stereo-Inertial/TUM_TimeStamps/dataset-room2_512.txt Examples/Stereo-Inertial/TUM_IMU/dataset-room2_512.txt dataset-room2_512_stereoi
 
 # echo "Launching Room 3 with Stereo-Inertial sensor"
 # ./Examples/Stereo-Inertial/stereo_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Stereo-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-room3_512_16/mav0/cam0/data "$pathDatasetTUM_VI"/dataset-room3_512_16/mav0/cam1/data Examples/Stereo-Inertial/TUM_TimeStamps/dataset-room3_512.txt Examples/Stereo-Inertial/TUM_IMU/dataset-room3_512.txt dataset-room3_512_stereoi
