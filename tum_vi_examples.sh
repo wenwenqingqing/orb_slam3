@@ -46,7 +46,7 @@ pathDatasetTUM_VI='/Users/yyqing/Soft/DataSet/tum' #Example, it is necesary to c
 # #------------------------------------
 # # Monocular-Inertial Examples
 # echo "Launching Corridor 1 with Monocular-Inertial sensor"
-./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-corridor1_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-corridor1_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-corridor1_512.txt dataset-corridor1_512_monoi
+# ./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-corridor1_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-corridor1_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-corridor1_512.txt dataset-corridor1_512_monoi
 
 # echo "Launching Corridor 2 with Monocular-Inertial sensor"
 # ./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-corridor2_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-corridor2_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-corridor2_512.txt dataset-corridor2_512_monoi
@@ -144,7 +144,7 @@ pathDatasetTUM_VI='/Users/yyqing/Soft/DataSet/tum' #Example, it is necesary to c
 # #------------------------------------
 # # Stereo-Inertial Examples
 # echo "Launching Corridor 1 with Stereo-Inertial sensor"
-# ./Examples/Stereo-Inertial/stereo_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Stereo-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-corridor1_512_16/mav0/cam0/data "$pathDatasetTUM_VI"/dataset-corridor1_512_16/mav0/cam1/data Examples/Stereo-Inertial/TUM_TimeStamps/dataset-corridor1_512.txt Examples/Stereo-Inertial/TUM_IMU/dataset-corridor1_512.txt dataset-corridor1_512_stereoi
+./Examples/Stereo-Inertial/stereo_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Stereo-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-corridor1_512_16/mav0/cam0/data "$pathDatasetTUM_VI"/dataset-corridor1_512_16/mav0/cam1/data Examples/Stereo-Inertial/TUM_TimeStamps/dataset-corridor1_512.txt Examples/Stereo-Inertial/TUM_IMU/dataset-corridor1_512.txt dataset-corridor1_512_stereoi
 
 # echo "Launching Corridor 2 with Stereo-Inertial sensor"
 # ./Examples/Stereo-Inertial/stereo_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Stereo-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-corridor2_512_16/mav0/cam0/data "$pathDatasetTUM_VI"/dataset-corridor2_512_16/mav0/cam1/data Examples/Stereo-Inertial/TUM_TimeStamps/dataset-corridor2_512.txt Examples/Stereo-Inertial/TUM_IMU/dataset-corridor2_512.txt dataset-corridor2_512_stereoi
