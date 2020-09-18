@@ -160,7 +160,7 @@ protected:
     long unsigned int mnId;
 
     std::set<MapPoint*> mspMapPoints;
-    std::set<KeyFrame*> mspKeyFrames;
+    std::set<KeyFrame*> mspKeyFrames; //关键帧集合
 
     std::vector<MapPoint*> mvpBackupMapPoints;
     std::vector<KeyFrame*> mvpBackupKeyFrames;

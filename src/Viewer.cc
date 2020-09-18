@@ -91,7 +91,7 @@ void Viewer::Init()
 
     menuFollowCamera = true;
     menuCamView = false;
-    menuTopView = false;
+    menuTopView = true;
     // pangolin::Var<bool> menuSideView("menu.Side View",false,false);
     menuShowPoints = true;
     menuShowKeyFrames = true;
