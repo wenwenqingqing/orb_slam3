@@ -9,14 +9,6 @@ MESSAGE("Build type: " ${CMAKE_BUILD_TYPE})
 
 option(BUILD_SHARED_LIBS "Build shared gtsam library, instead of static" ON)
 
-# if(UNIX)
-# set(BUILD_SHARED_LIBS OFF)
-# elseif(APPLE)
-# set(BUILD_SHARED_LIBS ON)
-# endif()
-
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall   -O3")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall   -O3")
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -march=native")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
 
@@ -136,7 +128,7 @@ add_library(${PROJECT_NAME} SHARED
 add_subdirectory(Thirdparty/g2o)
 add_subdirectory(Thirdparty/DBoW2)
 
-if(UNIX)
+if(UNIX AND NOT APPLE)
 message("Build orb lib for UNIX")
 target_link_libraries(${PROJECT_NAME} 
 ${OpenCV_LIBS}

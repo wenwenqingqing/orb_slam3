@@ -223,7 +223,6 @@ namespace ORB_SLAM3
                 }
 
                 std::chrono::steady_clock::time_point t7 = std::chrono::steady_clock::now();
-
                 mpLoopCloser->InsertKeyFrame(mpCurrentKeyFrame);
                 std::chrono::steady_clock::time_point t8 = std::chrono::steady_clock::now();
 

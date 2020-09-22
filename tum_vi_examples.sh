@@ -49,7 +49,7 @@ pathDatasetTUM_VI='/Users/yyqing/Soft/DataSet/tum' #Example, it is necesary to c
 # ./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-corridor1_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-corridor1_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-corridor1_512.txt dataset-corridor1_512_monoi
 
 # echo "Launching Corridor 2 with Monocular-Inertial sensor"
-./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-corridor2_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-corridor2_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-corridor2_512.txt dataset-corridor2_512_monoi
+# ./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-corridor2_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-corridor2_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-corridor2_512.txt dataset-corridor2_512_monoi
 
 # echo "Launching Corridor 3 with Monocular-Inertial sensor"
 # ./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-corridor3_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-corridor3_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-corridor3_512.txt dataset-corridor3_512_monoi
@@ -102,11 +102,11 @@ pathDatasetTUM_VI='/Users/yyqing/Soft/DataSet/tum' #Example, it is necesary to c
 # ./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512_far.yaml "$pathDatasetTUM_VI"/dataset-outdoors7_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-outdoors7_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-outdoors7_512.txt dataset-outdoors7_512_monoi
 
 # echo "Launching Outdoor 8 with Monocular-Inertial sensor"
-# ./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512_far.yaml "$pathDatasetTUM_VI"/dataset-outdoors8_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-outdoors8_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-outdoors8_512.txt dataset-outdoors8_512_monoi
+./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512_far.yaml "$pathDatasetTUM_VI"/dataset-outdoors8_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-outdoors8_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-outdoors8_512.txt dataset-outdoors8_512_monoi
 
 
 # echo "Launching Room 1 with Monocular-Inertial sensor"
-./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-room1_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-room1_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-room1_512.txt dataset-room1_512_monoi
+# ./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-room1_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-room1_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-room1_512.txt dataset-room1_512_monoi
 
 # echo "Launching Room 2 with Monocular-Inertial sensor"
 # ./Examples/Monocular-Inertial/mono_inertial_tum_vi Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/TUM_512.yaml "$pathDatasetTUM_VI"/dataset-room2_512_16/mav0/cam0/data Examples/Monocular-Inertial/TUM_TimeStamps/dataset-room2_512.txt Examples/Monocular-Inertial/TUM_IMU/dataset-room2_512.txt dataset-room2_512_monoi
