@@ -46,6 +46,9 @@ MESSAGE(${OpenCV_VERSION})
 
 find_package(Eigen3 3.1.0 REQUIRED)
 find_package(Pangolin REQUIRED)
+find_package(GTSAM REQUIRED)
+include_directories(${GTSAM_INCLUDE_DIR})
+message(STATUS "Building GTSAM - shared: ${BUILD_SHARED_LIBS}")
 
 set(BOOST_FIND_MINIMUM_VERSION 1.43)
 set(BOOST_FIND_MINIMUM_COMPONENTS serialization system filesystem thread program_options date_time timer chrono regex)
@@ -64,6 +67,7 @@ ${OPENSSL_INCLUDE_DIR}
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 set(CPP_SOURCE
+   src/gtsam_optimizer.cc
    src/System.cc
    src/Tracking.cc
    src/LocalMapping.cc
@@ -130,6 +134,7 @@ add_subdirectory(Thirdparty/DBoW2)
 
 if(UNIX AND NOT APPLE)
 message("Build orb lib for UNIX")
+target_include_directories(${PROJECT_NAME} PUBLIC ${GTSAM_INCLUDE_DIR})
 target_link_libraries(${PROJECT_NAME} 
 ${OpenCV_LIBS}
 ${EIGEN3_LIBS}
@@ -138,9 +143,12 @@ ${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so
 ${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.so
 -lboost_serialization
 -lcrypto
+gtsam 
+gtsam_unstable
 )
 elseif(APPLE)
 message("Build orb lib for APPLE")
+target_include_directories(${PROJECT_NAME} PUBLIC ${GTSAM_INCLUDE_DIR})
 target_link_libraries(${PROJECT_NAME} PUBLIC
 ${OpenCV_LIBS}
 ${EIGEN3_LIBS}
@@ -149,6 +157,8 @@ ${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.dylib
 ${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.dylib
 Boost::serialization
 ${OPENSSL_LIBRARIES}
+gtsam 
+gtsam_unstable
 )
 endif()
 
