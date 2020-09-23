@@ -2,8 +2,8 @@
 
 namespace gtsam_wrapper
 {
-//------------------------------------------------------------------------------
-// sugar for derivative blocks
+    //------------------------------------------------------------------------------
+    // sugar for derivative blocks
 #define D_R_R(H) (H)->block<3, 3>(0, 0)
 #define D_R_t(H) (H)->block<3, 3>(0, 3)
 #define D_R_v(H) (H)->block<3, 3>(0, 6)
@@ -244,12 +244,13 @@ namespace gtsam_optimizer
         gtsam::Vector3 p_j = pose_j.translation(&H4);
 
         gtsam::Matrix96 D_biasCorrected_bias;
-        gtsam::Vector9 biasCorrected = _PIM_.biasCorrectedDelta(bias_i,
-                                                                H_b ? &D_biasCorrected_bias : 0);
+        gtsam::Vector9 biasCorrected = _PIM_.biasCorrectedDelta(bias_i, H_b ? &D_biasCorrected_bias : 0);
+
         gtsam::Matrix3 J_r_dr, J_exp_dr;
         e_r = gtsam::Rot3::Logmap(gtsam::Rot3::Expmap(dR(biasCorrected), J_exp_dr).inverse() * rot_i.inverse() * rot_j, J_r_dr);
-        gtsam::Matrix3 J_er_bias;
-        J_er_bias = -(J_r_dr * ((rot_i.inverse() * rot_j).inverse() * gtsam::Rot3::Expmap(dR(biasCorrected))).matrix()) * J_exp_dr;
+        gtsam::Matrix3 J_er_xi_dr;
+        J_er_xi_dr = -(J_r_dr * ((rot_i.inverse() * rot_j).inverse() * gtsam::Rot3::Expmap(dR(biasCorrected))).matrix()) * J_exp_dr;
+
         gtsam::Matrix3 J_ev_ri, J_ep_ri, J_ev_1, J_ep_2;
         e_v = rot_i.unrotate(scale * vel_i - scale * vel_j - rwg * gI_ * dt_, J_ev_ri, J_ev_1) - dV(biasCorrected);
         e_p = rot_i.unrotate(scale * p_i - scale * p_j - scale * vel_i * dt_ - 0.5 * (rwg * gI_ * dt_ * dt_), J_ep_ri, J_ep_2) - dP(biasCorrected);
@@ -316,9 +317,9 @@ namespace gtsam_optimizer
         {
             gtsam::Matrix96 J_e_b;
             J_e_b.setZero();
-            J_e_b.block<3, 6>(0, 0) = J_er_bias * D_biasCorrected_bias.block<3, 6>(0, 0); // R
-            J_e_b.block<3, 6>(6, 0) = -D_biasCorrected_bias.block<3, 6>(3, 0);            // P
-            J_e_b.block<3, 6>(3, 0) = -D_biasCorrected_bias.block<3, 6>(6, 0);            // V
+            J_e_b.block<3, 6>(0, 0) = J_er_xi_dr * D_biasCorrected_bias.block<3, 6>(0, 0); // R
+            J_e_b.block<3, 6>(6, 0) = -D_biasCorrected_bias.block<3, 6>(3, 0);             // P
+            J_e_b.block<3, 6>(3, 0) = -D_biasCorrected_bias.block<3, 6>(6, 0);             // V
             *H_b = J_e_b;
         }
         return imu_pim_error;
