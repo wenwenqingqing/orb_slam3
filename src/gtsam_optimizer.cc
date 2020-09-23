@@ -218,4 +218,107 @@ namespace gtsam_optimizer
 
     }
 
+    gtsam::Vector InertialEgdeGS2::evaluateError(gtsam::Pose3& pose_i, gtsam::Vector3& vel_i, gtsam::Pose3& pose_j, gtsam::Vector3& vel_j,
+        const Rot3 &rwg, const double& scale, imuBias::ConstantBias& bias_i,
+        boost::optional<Matrix &> H_pi,
+        boost::optional<Matrix &> H_vi,
+        boost::optional<Matrix &> H_pj,
+        boost::optional<Matrix &> H_vj,
+        boost::optional<Matrix &> H_rwg,
+        boost::optional<Matrix &> H_scale,
+        boost::optional<Matrix &> H_b) const
+    {   
+        gtsam::Vector9 imu_pim_error;
+        gtsam::Vector3 e_r, e_v, e_p;
+        gtsam::Matrix36 H1, H2, H3, H4;
+
+        gtsam::Rot3 rot_i = pose_i.rotation(&H1);
+        gtsam::Vector3 p_i = pose_i.translation(&H2);
+        gtsam::Rot3 rot_j = pose_j.rotation(&H3);
+        gtsam::Vector3 p_j = pose_j.translation(&H4);
+
+        gtsam::Matrix96 D_biasCorrected_bias;
+        gtsam::Vector9 biasCorrected = _PIM_.biasCorrectedDelta(bias_i,
+            H_b ? &D_biasCorrected_bias : 0);
+        gtsam::Matrix3 J_r_dr, J_exp_dr;
+        e_r = gtsam::Rot3::Logmap(gtsam::Rot3::Expmap(dR(biasCorrected), J_exp_dr).inverse().compose(rot_i.inverse()).compose(rot_j), J_r_dr);
+        gtsam::Matrix3 J_er_bias;
+        J_er_bias = - (J_r_dr* ((rot_i.inverse()* rot_j).inverse()* gtsam::Rot3::Expmap(dR(biasCorrected))).matrix())* J_exp_dr;
+        gtsam::Matrix3 J_ev_ri, J_ep_ri, J_ev_1, J_ep_2;
+        e_v = rot_i.unrotate(scale* vel_i - scale* vel_j - rwg* gI_* dt_, J_ev_ri, J_ev_1) - dV(biasCorrected);
+        e_p = rot_i.unrotate(scale* p_i - scale* p_j - scale* vel_i* dt_ - 0.5* (rwg* gI_* dt_*dt_), J_ep_ri, J_ep_2) - dP(biasCorrected);
+        imu_pim_error << e_r, e_v, e_p;
+
+        gtsam::Matrix93 J_e_pi, J_e_pj, J_e_vi, J_e_vj, J_e_ri, J_e_rj;
+        if(H_pi)
+        {
+            gtsam::Matrix96 J_e_Pi;
+            J_e_pi.setZero();
+            J_e_pi.block<3, 6>(6, 0) = J_ep_2* scale;
+            J_e_ri.setZero();
+            J_e_ri.block<3, 6>(0, 0) = J_r_dr* -(rot_j.inverse()* rot_i).matrix();
+            J_e_ri.block<3, 6>(3, 0) = J_ev_ri;
+            J_e_ri.block<3, 6>(6, 0) = J_ep_ri;
+            J_e_Pi = J_e_pi* H2 + J_e_ri* H1;
+            H_pi = J_e_Pi;
+        }
+
+        if(H_pj)
+        {
+            gtsam::Matrix96 J_e_Pj;
+            J_e_pj.setZero();
+            J_e_pj.block<3, 6>(6, 0) = J_ep_2* -scale;
+            J_e_rj.setZero();
+            J_e_rj.block<3, 6>(0, 0) = J_r_dr;
+            J_e_Pj = J_e_pi* H2 + J_e_ri* H1;
+            H_pj = J_e_Pj;
+        }
+
+        if(H_vi)
+        {
+            J_e_vi.setZero();
+            J_e_vi.block<9, 3>(3, 0) = J_ev_1* scale;
+            *H_vi = J_e_vi;
+        }
+        
+        if(H_vi)
+        {
+            J_e_vi.setZero();
+            J_e_vi.block<9, 3>(3, 0) = J_ev_1* -scale;
+            *H_vi = J_e_vi;
+        }
+
+        if(H_scale)
+        {
+            gtsam::Matrix91 J_e_s;
+            J_e_s.setZero();
+            J_e_s.block<3, 1>(3, 0) = rot_i.unrotate(vel_j- vel_i)* scale;
+            J_e_s.block<3, 1>(6, 0) = rot_i.unrotate(p_j - p_i - vel_i* dt_)* scale;
+            *H_scale = J_e_s;
+        }
+
+        if(H_rwg)
+        {
+            gtsam::Matrix91 J_e_r;
+            J_e_r.setZero();
+            J_e_r.block<3, 1>(3, 0) = -(rot_i.inverse()* rwg* gtsam::skewSymmetric(-gI_))* dt_;
+            J_e_r.block<3, 1>(6, 0) = -(rot_i.inverse()* rwg* gtsam::skewSymmetric(-gI_))* dt_* dt_;
+            *H_rwg = J_e_r;    
+        }
+
+        if(H_b)
+        {
+            gtsam::Matrix96 J_e_b;
+            J_e_b.setZero();
+            J_e_b.block<3, 6>(0, 0) = J_er_bias* D_biasCorrected_bias.block<3, 6>(0, 0);
+            J_e_b.block<3, 6>(3, 0) = - D_biasCorrected_bias.block<3, 6>(3, 0);
+            J_e_b.block<3, 6>(6, 0) = - D_biasCorrected_bias.block<3, 6>(6, 0);
+            *H_b = J_e_b;
+
+        }
+        return imu_pim_error;
+
+    }
+
+
 };
